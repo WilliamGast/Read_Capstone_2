@@ -1,7 +1,7 @@
 # Capstone-2
 
 ## Intruduction
- I plan to create a sentiment classification model with the sentiment classes being  negative,positive or neutral given tweets received by US airlines. As my baseline I will be using a lexicon and rule-based sentiment analysis called VADER and testing that against a Random forest, naive bayes to see which performs the best. After understanding which model performs the best I will then take that data and visualize it.
+ I plan to create a sentiment classification model with the sentiment classes being  negative,positive or neutral given tweets received by US airlines. As my baseline I will be using a lexicon and rule-based sentiment analysis called VADER and testing that against a Random forest and naive bayes to see which performs the best.
 
  Sentiment analysis or opinion mining is an NLP technique that lets you determine the attitude (positive, negative, or neutral) of text.
 
@@ -9,16 +9,16 @@
  
 ## Data
 The data was a Kaggle data set named [Twitter US Airline Sentiment](https://www.kaggle.com/crowdflower/twitter-airline-sentiment). 
-![data info](data_info.png)
-![missing data](missing.png)
+![data info](./images/info.png)
+![missing data](./images/missing.png)
 
 ### Data Cleaning
 This data was already very clean for the columns that I ended up using. I did have to do some cleaning of @ signs and hashtags but other than that most of my data processing and feature enginearing was done in the preprocessing stage.
 
 
 ## EDA
-![airline mood](airline_mood.png)
-![reasons](reasons.png)
+![airline mood](./images/airline_mood.png)
+![reasons](./images/reasons.png)
 ### Preprocessing
 - Tokenization
 - Lower casing
@@ -52,4 +52,3 @@ I prioritized using the F1-score for my evalusation metric. I did this because i
 - More Hyperparmeter Tuning 
 - Try a CNN model
 - Actually run my GridSearchCV
-- 
