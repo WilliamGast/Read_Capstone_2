@@ -17,13 +17,13 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.naive_bayes import MultinomialNB
 from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, VectorizerMixin
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import GridSearchCV
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from textblob import TextBlob
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-def cleanTXT(text):
+def cleanTXT(text,punc = string.punctuation):
     """
     This function is going to clean your text columns from any
     account tags (ex:@VirginAirways), Hashtags, and Retweet tags)
@@ -36,6 +36,10 @@ def cleanTXT(text):
     text = re.sub(r'@[A-Za-z0-9]+', '', text)
     text = re.sub(r'#', '', text)
     text = re.sub(r'RT[\s]+', '', text)
+    punc = punc.replace("@", "").replace("#", "").replace("?", "").replace("!", "")
+    text = re.sub("&amp", "&", text)
+    text = re.sub(rf"[{punc}]", "", text)
+    text = re.sub(rf"\s\d+\s", " ", text)
     return text
 
 def analyize_text(input_text,analyzer):
@@ -98,39 +102,17 @@ def test_model(Xtrain,Xtest, ytrain, ytest,Vectorizer,Model):
     Model:
         This is Where you will unput the model that you want to test
     """
-    model = make_pipeline((Vectorizer(stop_words = stopwords)), Model())
+    model = make_pipeline((Vectorizer(stop_words = stopwords)), Model)
     model.fit(Xtrain, ytrain)
     label = model.predict(Xtest)
     metrics = classification_report(label,ytest)
     return metrics
 
-def gridsearch(Xtrain,Xtest, ytrain, ytest,Vec_and_mod):
-    """
-    This function will preform gridsearch for hyperparameter testing 
-    ...
-    Parameters
-    ----------
-    Xtrain,Xtest,ytrain,ytest : 
-        these are the inputst that you will recieve from yourr train_test_split
-    Vec_and_mod:
-        This is where you will input a list expressing the model and vector that you want to use
-    """
-    Vec_and_mod.fit(Xtrain,ytrain)
-    predicted = Class.predict(Xtest)
-    metrics = classification_report(predicted,ytest)
-    parameters = {
-        'vect__ngram_range': [(1, 1), (1, 2)],
-        'tfidf__use_idf': (True, False),
-        'clf__alpha': (1e-2, 1e-3),
-    }    
-    gs = GridSearchCV(Class,parameters,cv=5,n_jobs = -1)
-    gs = gs.fit(X_train,y_train)
-    bestscore =  gs.best_score_
-    for param_name in sorted(parameters.keys()):
-        return "%s: %r" % (param_name, gs.best_params_[param_name])
+
+
 if __name__ == "__main__":
     # Read in tweet data
-    data = pd.read_csv('Tweets.csv')
+    data = pd.read_csv('../data/Tweets.csv')
     df = data.copy()[['airline_sentiment', 'text']]
     df['text'] = df['text'].apply(cleanTXT)
     stopwords = set(stopwords.words('english'))
@@ -149,8 +131,8 @@ if __name__ == "__main__":
     #print(confusion_matrix(df['airline_sentiment'], df['vader']).ravel())
     #print(classification_report(df['airline_sentiment'],df['vader']))
     #print(classification_report(df['airline_sentiment'],df['Textblob']))
-    print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,RandomForestClassifier))
-    print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,MultinomialNB))
+    print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,RandomForestClassifier()))
+    print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,MultinomialNB()))
     Class  = text_clf = Pipeline([
         ('vect', CountVectorizer()),
         ('tfidf', TfidfTransformer()),

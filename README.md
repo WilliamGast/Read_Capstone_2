@@ -5,7 +5,7 @@
 
  Sentiment analysis or opinion mining is an NLP technique that lets you determine the attitude (positive, negative, or neutral) of text.
 
- With this model that I create from this project an airline company could take result and understand how there customers are reacting to them and their services purely from their twitter data. This is important because this can be used to mprove a company's decision making, customer satisfaction and more
+ With this model that I create from this project an airline company could take these results and understand how their customers are reacting to them and their services  from their twitter data. This is important because this can be used to improve a company's decision making, customer satisfaction and more
  
 ## Data
 The data was a Kaggle data set named [Twitter US Airline Sentiment](https://www.kaggle.com/crowdflower/twitter-airline-sentiment). 
@@ -43,7 +43,6 @@ I prioritized using the F1-score for my evalusation metric. I did this because i
 |               | Precision | Recall | f1-score |   |
 |---------------|-----------|--------|----------|---|
 | VADER         |    .70      |  .55     |    .58     |   |
-| Textblob      |    .67      |  .46     |    .48     |   |
 |  Naive Bayes  |    .84      |  .77      |   .79       |   |
 | Random Forest |    .77      |  .75      |   .76       |   |
 ### Example Output
@@ -51,4 +50,3 @@ I prioritized using the F1-score for my evalusation metric. I did this because i
 ### What Next?
 - More Hyperparmeter Tuning 
 - Try a CNN model
-- Actually run my GridSearchCV
