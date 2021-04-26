@@ -11,8 +11,6 @@ import re
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
-#dense_features=train_features.toarray()
-#dense_test= X_test.toarray()
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.naive_bayes import MultinomialNB
 from nltk.corpus import stopwords
@@ -129,10 +127,10 @@ if __name__ == "__main__":
     matrix_list = matrix_and_array('airline_sentiment', columns)
     #truth = pd.DataFrame(matrix_list,index = index,columns = col_names).sort_values('TN', ascending = False)
     #print(confusion_matrix(df['airline_sentiment'], df['vader']).ravel())
-    #print(classification_report(df['airline_sentiment'],df['vader']))
-    #print(classification_report(df['airline_sentiment'],df['Textblob']))
-    print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,RandomForestClassifier()))
-    print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,MultinomialNB()))
+    print(classification_report(df['airline_sentiment'],df['vader']))
+    print(classification_report(df['airline_sentiment'],df['Textblob']))
+    # print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,RandomForestClassifier()))
+    # print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,MultinomialNB()))
     Class  = text_clf = Pipeline([
         ('vect', CountVectorizer()),
         ('tfidf', TfidfTransformer()),
@@ -149,6 +147,7 @@ if __name__ == "__main__":
         'clf__alpha': (1e-2, 1e-3),
     }
     
-   
+    #print(test_model(X_train1, X_test1, y_train1, y_test1,CountVectorizer,RandomForestClassifier()))
+    #print(test_model(X_train1, X_test1, y_train1, y_test1,CountVectorizer,MultinomialNB()))
     
     
