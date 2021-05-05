@@ -1,4 +1,4 @@
-# Capstone-2
+# Twitter Sentiment Analysis 
 
 ## Intruduction
  I plan to create a sentiment classification model with the sentiment classes being  negative,positive or neutral given tweets received by US airlines. As my baseline I will be using a lexicon and rule-based sentiment analysis called VADER and testing that against a Random forest and naive bayes to see which performs the best.
@@ -9,16 +9,19 @@
  
 ## Data
 The data was a Kaggle data set named [Twitter US Airline Sentiment](https://www.kaggle.com/crowdflower/twitter-airline-sentiment). 
-![data info](./images/info.png)
-![missing data](./images/missing.png)
+Targets
+*Existing sentiment of tweets
+Features
+*Tweets sent from customers mentioning the airline accounts directly
+
 
 ### Data Cleaning
 This data was already very clean for the columns that I ended up using. I did have to do some cleaning of @ signs and hashtags but other than that most of my data processing and feature enginearing was done in the preprocessing stage.
 
 
 ## EDA
-![airline mood](./images/airline_mood.png)
-![reasons](./images/reasons.png)
+![airline mood](./sentiment.png)
+![reasons](./negative_sentiment.png)
 ### Preprocessing
 - Tokenization
 - Lower casing
@@ -29,7 +32,8 @@ This data was already very clean for the columns that I ended up using. I did ha
 ## Models
 #### VADER sentiment 
 VADER (Valence Aware Dictionary and sEntiment Reasoner) is a lexicon and rule-based sentiment analysis tool specifically tuned to be used for social media. VADER uses a combination of A sentiment lexicon is a list of lexical features (e.g., words) which are generally labeled according to their semantic orientation as either positive or negative. It also shows how positive or negative the text is.
-#### Naive Bayes
+
+#### Multinomial Naive Bayes
 Multnomial Naive Bayes classification is known for being a good classifier for sentiment analysis. The intuition behind Naive Bayes is to find the probability of classes assigned to given text by using the joint probabilities of words and classes. 
 
 ### Random Forest
@@ -46,6 +50,11 @@ I prioritized using the F1-score for my evalusation metric. I did this because i
 |  Naive Bayes  |    .84      |  .77      |   .79       |   |
 | Random Forest |    .77      |  .75      |   .76       |   |
 ### Example Output
+![neautral](./images/neautral_features.png)
+![negative](./images/negative_features.png)
+![positive](./images/positive_features.png)
+
+
 
 ### What Next?
 - More Hyperparmeter Tuning 
