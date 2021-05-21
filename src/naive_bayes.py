@@ -95,10 +95,10 @@ if __name__=='__main__':
         plt.style.use('seaborn')
         fig, ax = plt.subplots(1, 1, figsize=(15, 8))
         
-        ax.set_title(f'Top {n} Feature importance for {target_names[i]} sentiment', fontsize=18)
-        ax.set_ylabel('log probability ', fontsize=22)
-        ax.set_xlabel('features', fontsize=22)
-        ax.tick_params(labelsize=18)
+        ax.set_title(f'Top {n} words associated with {target_names[i]} sentiment', fontsize=26)
+        ax.set_xlabel('log probability ', fontsize=22)
+        ax.set_ylabel('words', fontsize=22)
+        ax.tick_params(labelsize=22)
                 
         feat_importances = np.array(nb_model.feature_log_prob_[i])
         feat_names = np.array(feature_words)
@@ -108,20 +108,34 @@ if __name__=='__main__':
             feat_std_deviations = feat_std_deviations[sort_idx]
         else:
             feat_std_deviations = None
-        ax.bar(feat_names[sort_idx], feat_importances[sort_idx],
-             linewidth=1, yerr=feat_std_deviations)
-        ax.set_xticklabels(feat_names[sort_idx], rotation=40, ha='right')
+        ax.barh(feat_names[sort_idx], feat_importances[sort_idx],
+             linewidth=1, yerr=feat_std_deviations, color= 'green')
+        #ax.set_xticklabels(feat_names[sort_idx], rotation=40, ha='right')
         plt.tight_layout()
+        ax.invert_yaxis()
         #plt.savefig(outfilename)
         #plt.close('all')
 
         plt.show()
-        
+    '''    
     Mood_count=data['negativereason'].value_counts()
     Index = [1,2,3,4,5,6,7,8,9,10]
-    plt.bar(Index,Mood_count)
-    plt.xticks(Index,['Customer Service issues','Late Flight','Can not Tell','Cancelled Flight','Lost Luggage','Bad Flight',' Flight Booking Problem','Flight attendent compaint',' long lines','Damaged luggage' ],rotation=80,fontsize=16)
-    plt.ylabel('Count',fontsize=22)
-    plt.xlabel('Reason',fontsize=22)
+    plt.barh(Index,Mood_count, color= 'red')
+    plt.yticks(Index,['Customer Service issues','Late Flight','Can not Tell','Cancelled Flight','Lost Luggage','Bad Flight',' Flight Booking Problem','Flight attendent compaint',' long lines','Damaged luggage' ],fontsize=16)
+    plt.xlabel('Count',fontsize=22)
+    plt.ylabel('Reason',fontsize=22)
     plt.title('Reason for Negative Sentiment',fontsize=22)
+    plt.tight_layout
+    plt.savefig('negative_sentiment.png',dpi=400)
+    plt.show()
+    '''
+    Mood_count=data['negativereason'].value_counts()
+    Index = [0,1,2,3,4,5,6,7,8,9]
+    plt.barh(Index,Mood_count, color= 'firebrick')
+    plt.yticks(Index,['Customer Service issues','Late Flight','Can not Tell','Cancelled Flight','Lost Luggage','Bad Flight',' Flight Booking Problem','Flight attendent compaint',' long lines','Damaged luggage'],fontsize=12)
+    plt.xlabel('Count',fontsize=22)
+    plt.ylabel('Reason',fontsize=22)
+    plt.title('Reason for Negative Sentiment',fontsize=22)
+    plt.tight_layout()
+    #plt.savefig('negative_sentiment.png',dpi=400)
     plt.show()

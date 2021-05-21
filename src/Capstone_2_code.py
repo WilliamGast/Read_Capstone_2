@@ -15,7 +15,7 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.naive_bayes import MultinomialNB
 from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, TfidfVectorizer
 from sklearn.model_selection import GridSearchCV
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from textblob import TextBlob
@@ -127,20 +127,20 @@ if __name__ == "__main__":
     matrix_list = matrix_and_array('airline_sentiment', columns)
     #truth = pd.DataFrame(matrix_list,index = index,columns = col_names).sort_values('TN', ascending = False)
     #print(confusion_matrix(df['airline_sentiment'], df['vader']).ravel())
-    print(classification_report(df['airline_sentiment'],df['vader']))
-    print(classification_report(df['airline_sentiment'],df['Textblob']))
-    # print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,RandomForestClassifier()))
-    # print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,MultinomialNB()))
-    Class  = text_clf = Pipeline([
+    #print(classification_report(df['airline_sentiment'],df['vader']))
+    #print(classification_report(df['airline_sentiment'],df['Textblob']))
+    print(test_model(X_train, X_test, y_train, y_test,TfidfVectorizer,MultinomialNB()))
+    print(test_model(X_train, X_test, y_train, y_test,CountVectorizer,MultinomialNB()))
+    Class =  Pipeline([
         ('vect', CountVectorizer()),
         ('tfidf', TfidfTransformer()),
         ('clf', MultinomialNB()),])
-    '''
+    
     Class.fit(X_train,y_train)
     predicted = Class.predict(X_test)
     metrics = classification_report(predicted,y_test)
     print(metrics)
-    '''
+    
     parameters = {
         'vect__ngram_range': [(1, 1), (1, 2)],
         'tfidf__use_idf': (True, False),
